@@ -12,7 +12,7 @@
 *	The MIT License
 *	http://www.opensource.org/licenses/mit-license.php
 *
-*	INSALLATION
+*	INSTALLATION
 *	---------------------------------------------------------------------------
 *	Tabs are controlled with links. Each link has a target that it is attached to and specified
 *	as an #anchor in the href attribute. Example: <a href="#tab">tab</a>. The #anchor
@@ -22,7 +22,7 @@
 *	class of the tabs with the "tabs" class. For a single tab just add the class "tabs" to it.
 *
 *	Active tabs given the class "active" by default. Inactive tabs have no class. You may
-*	specify the default active/inactive tabs  by adding the class "active" to any of them in
+*	specify the default active/inactive tabs by adding the class "active" to any of them in
 *	your HTML.
 *
 *	Tab targets are automatically shown and hidden as you click the appropriate tabs. You can control
