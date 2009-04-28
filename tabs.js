@@ -4,6 +4,9 @@
 *	Copyright (c) 2008 Dan Peverill
 *	http://www.danpeverill.com
 *
+*	Copyright (c) 2009 Bo Frederiksen
+*	http://www.bofrede.com
+*
 *	LICENSE
 *	---------------------------------------------------------------------------
 *	The MIT License
@@ -27,7 +30,7 @@
 *	with CSS. This script only toggles the active class on tabs and shows/hides the tab targets.
 *
 *	You may add custom tabs yourself with Tabs.create(tabs, callbacks).
-*	
+*
 *	Callbacks is an optional argument. Callbacks is an object with two optional properties: click, show.
 *	These options are a function that handles the appropriate callback. Each callback can accept
 *	two arguments, the click event and the currently active tab target. this refers to the tab.
@@ -40,194 +43,217 @@
 var Tabs = {
 	className: "tabs",
 	activeClass: "active",
-	
-	addLoadEvent: function(event) {
+
+	addLoadEvent: function (event) {
 		var oldLoad = window.onload;
-		
-		window.onload = function() {
+
+		window.onload = function () {
 			event();
-			if (oldLoad) oldLoad();
+			if (oldLoad) {
+				oldLoad();
+			}
+		};
+	},
+
+	create: function (tabs, callbacks) {
+		if (!tabs.length) {
+			this.createSingle(tabs, callbacks);
+		} else {
+			this.createGroup(tabs, callbacks);
 		}
 	},
-	
-	create: function(tabs, callbacks) {
-		if (!tabs.length)
-			this.createSingle(tabs, callbacks);
-		else
-			this.createGroup(tabs, callbacks);
-	},
-	
-	createSingle: function(tab, callbacks) {
-		if (this.Element.hasClass(tab, this.activeClass))
+
+	createSingle: function (tab, callbacks) {
+		if (this.Element.hasClass(tab, this.activeClass)) {
 			this.Element.show(this.getTarget(tab));
-	
-		this.Element.addClickEvent(tab, function(e) {
-			if (!Tabs._callback(this, callbacks, "click", e))
+		}
+
+		this.Element.addClickEvent(tab, function (e) {
+			if (!Tabs.callback(this, callbacks, "click", e)) {
 				return false;	// Cancel event.
-			
+			}
+
 			Tabs.Element.toggleClass(this, Tabs.activeClass);
-			
-			if (!Tabs._callback(this, callbacks, "show", e))
+
+			if (!Tabs.callback(this, callbacks, "show", e)) {
 				return false;	// Callback handled visibility change.
-			
+			}
+
 			Tabs.Element.toggleVisibility(Tabs.getTarget(this));
 		});
 	},
-	
-	createGroup: function(tabs, callbacks) {
+
+	createGroup: function (tabs, callbacks) {
 		var active;
-		
+		var tab;
+
 		for (var i = 0; i < tabs.length; i++) {
-			var tab = tabs[i];
+			tab = tabs[i];
 			if (this.Element.hasClass(tab, this.activeClass)) {
 				active = tab;
 				this.Element.addClass(tab);
 				this.Element.show(this.getTarget(tab));
-			}
-			else {
+			} else {
 				this.Element.hide(this.getTarget(tab));
 			}
 
-			Tabs.Element.addClickEvent(tab, function(e) {
-				if (!Tabs._callback(this, callbacks, "click", e, active))
+			Tabs.Element.addClickEvent(tab, function (e) {
+				if (!Tabs.callback(this, callbacks, "click", e, active)) {
 					return false;	// Cancel event.
-					
+				}
+
 				Tabs.Element.removeClass(active, Tabs.activeClass);
 				Tabs.Element.addClass(this, Tabs.activeClass);
-				
+
 				var from = active;
 				active = this;
-				
-				if (!Tabs._callback(this, callbacks, "show", e, from))
+
+				if (!Tabs.callback(this, callbacks, "show", e, from)) {
 					return false;	// Callback handled visibility change.
-				
+				}
+
 				Tabs.Element.hide(Tabs.getTarget(from));
 				Tabs.Element.show(Tabs.getTarget(this));
 			});
 		}
-		
+
 		if (!active) {
-			var tab = tabs[0];
+			tab = tabs[0];
 			active = tab;
-			
+
 			this.Element.addClass(tab, this.activeClass);
 			this.Element.show(this.getTarget(tab));
 		}
 	},
-	
-	_callback: function(element, callbacks, type, e, active) {
-		if (callbacks && callbacks[type] && callbacks[type].call(element, e, active) === false)
+
+	callback: function (element, callbacks, type, e, active) {
+		if (callbacks && callbacks[type] && callbacks[type].call(element, e, active) === false) {
 			return false;
-		
+		}
+
 		return true;
 	},
-	
-	getTarget: function(tab) {
+
+	getTarget: function (tab) {
 		var match = /#(.*)$/.exec(tab.href);
 		var target;
-		
-		if (match && (target = document.getElementById(match[1])))
+
+		if (match && (target = document.getElementById(match[1]))) {
 			return target;
-	},
-	
-	getElementsByClassName: function(className, tag) {
-		var elements = document.getElementsByTagName(tag || "*");
-		var list = new Array();
-		
-		for (var i = 0; i < elements.length; i++) {
-			if (this.Element.hasClass(elements[i], this.className))
-				list.push(elements[i]);
 		}
-		
+	},
+
+	getElementsByClassName: function (className, tag) {
+		var elements = document.getElementsByTagName(tag || "*");
+		var list = [];
+
+		for (var i = 0; i < elements.length; i++) {
+			if (this.Element.hasClass(elements[i], this.className)) {
+				list.push(elements[i]);
+			}
+		}
+
 		return list;
 	}
 };
 
 Tabs.Element = {
-	addClickEvent: function(element, callback) {
+	addClickEvent: function (element, callback) {
 		var oldClick = element.onclick;
-		
-		element.onclick = function(e) {
+
+		element.onclick = function (e) {
 			callback.call(this, e);
-			if (oldClick) oldClick.call(this, e);	// Play nice with others.
-			
+			if (oldClick) {
+				oldClick.call(this, e);	// Play nice with others.
+			}
+
 			return false;
-		}
-	},
-	
-	addClass: function(element, className) {
-		element.className += (element.className ? " " : "") + className;
-	},
-	
-	removeClass: function(element, className) {
-		element.className = element.className.replace(new RegExp("(^|\\s)" + className + "(\\s|$)"), "$1");
-		if (element.className == " ")
-			element.className = "";
+		};
 	},
 
-	hasClass: function(element, className) {
+	addClass: function (element, className) {
+		element.className += (element.className ? " " : "") + className;
+	},
+
+	removeClass: function (element, className) {
+		element.className = element.className.replace(new RegExp("(^|\\s)" + className + "(\\s|$)"), "$1");
+		if (element.className === " ") {
+			element.className = "";
+		}
+	},
+
+	hasClass: function (element, className) {
 		return element.className && (new RegExp("(^|\\s)" + className + "(\\s|$)")).test(element.className);
 	},
-	
-	toggleClass: function(element, className) {
-		if (this.hasClass(element, className))
+
+	toggleClass: function (element, className) {
+		if (this.hasClass(element, className)) {
 			this.removeClass(element, className);
-		else
+		} else {
 			this.addClass(element, className);
+		}
 	},
-	
-	getStyle: function(element, property) {
-		if (element.style[property]) return element.style[property];
-		
-		if (element.currentStyle)	// IE.
+
+	getStyle: function (element, property) {
+		if (element.style[property]) {
+			return element.style[property];
+		}
+
+		if (element.currentStyle) {	// IE.
 			return element.currentStyle[property];
-			
+		}
+
 		property = property.replace(/([A-Z])/g, "-$1").toLowerCase();	// Turns propertyName into property-name.
 		var style = document.defaultView.getComputedStyle(element, "");
-		if (style)
+		if (style) {
 			return style.getPropertyValue(property);
+		}
 	},
-	
-	show: function(element) {
+
+	show: function (element) {
 		element.style.display = "";
-		if (this.getStyle(element, "display") == "none")
+		if (this.getStyle(element, "display") === "none") {
 			element.style.display = "block";
+		}
 	},
-	
-	hide: function(element) {
+
+	hide: function (element) {
 		element.style.display = "none";
 	},
-	
-	isVisible: function(element) {
-		return this.getStyle(element, "display") != "none";
+
+	isVisible: function (element) {
+		return this.getStyle(element, "display") !== "none";
 	},
-	
-	toggleVisibility: function(element) {
-		if (this.isVisible(element))
+
+	toggleVisibility: function (element) {
+		if (this.isVisible(element)) {
 			this.hide(element);
-		else
+		} else {
 			this.show(element);
+		}
 	}
 };
 
-Tabs.addLoadEvent(function() {
+Tabs.addLoadEvent(function () {
 	var elements = Tabs.getElementsByClassName(Tabs.className);
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
-			
-		if (element.tagName == "A") {
+
+		if (element.tagName === "A") {
 			Tabs.create(element);
-		}
-		else {	// Group
+		} else {	// Group
 			var tabs = element.getElementsByTagName("a");
-			var group = new Array();
-				
+			var group = [];
+
 			for (var t = 0; t < tabs.length; t++) {
-				if (Tabs.getTarget(tabs[t]))
+				if (Tabs.getTarget(tabs[t])) {
 					group.push(tabs[t]);	// Only group actual tab links.
+				}
 			}
 
-			if (group.length) Tabs.create(group);
+			if (group.length) {
+				Tabs.create(group);
+			}
 		}
 	}
 });
