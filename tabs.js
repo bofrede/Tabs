@@ -33,11 +33,10 @@
 *
 *	Callbacks is an optional argument. Callbacks is an object with two optional properties: click, show.
 *	These options are a function that handles the appropriate callback. Each callback can accept
-*	two arguments, the click event and the currently active tab target. this refers to the tab.
+*	two arguments, the click event and the currently active tab target. "this" refers to the tab.
 *	click: This callback is triggered just as a tab is clicked. Returning false cancels the entire event.
-*	show: This callback is triggered after the active class and tab has been set, but just before
-*		the tab targets are shown.  Returning false means you  handled the showing/hiding of
-*		of the tab targets.
+*	show: This callback is triggered after the active class and tab has been set, but just before the
+*		tab targets are shown. Returning false means you handled the showing/hiding of the tab targets.
 */
 
 var Tabs = {
