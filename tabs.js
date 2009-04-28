@@ -127,11 +127,7 @@ var Tabs = {
 	},
 
 	callback: function (element, callbacks, type, e, active) {
-		if (callbacks && callbacks[type] && callbacks[type].call(element, e, active) === false) {
-			return false;
-		}
-
-		return true;
+		return !(callbacks && callbacks[type] && callbacks[type].call(element, e, active));
 	},
 
 	getTarget: function (tab) {
