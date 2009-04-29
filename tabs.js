@@ -79,6 +79,7 @@ var Tabs = {
 			}
 
 			Tabs.Element.toggleVisibility(Tabs.getTarget(this));
+			return true;
 		});
 	},
 
@@ -113,6 +114,7 @@ var Tabs = {
 
 				Tabs.Element.hide(Tabs.getTarget(from));
 				Tabs.Element.show(Tabs.getTarget(this));
+				return true;
 			});
 		}
 
