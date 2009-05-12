@@ -71,14 +71,12 @@ var Tabs = {
 			this.Element.show(this.getTarget(tab));
 		}
 		this.addEvent(tab, "click", function (e) {
-			if (!Tabs.callback(this, callbacks, "click", e)) {
-				return false;	// Cancel event.
+			if (Tabs.callback(this, callbacks, "click", e)) {
+				Tabs.Element.toggleClass(this, Tabs.activeClass);
+				if (Tabs.callback(this, callbacks, "show", e)) {
+					Tabs.Element.toggleVisibility(Tabs.getTarget(this));
+				}
 			}
-			Tabs.Element.toggleClass(this, Tabs.activeClass);
-			if (!Tabs.callback(this, callbacks, "show", e)) {
-				return false;	// Callback handled visibility change.
-			}
-			Tabs.Element.toggleVisibility(Tabs.getTarget(this));
 			if (e.preventDefault) { // For DOM compliant browsers http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-Event-preventDefault
 				e.preventDefault();
 			} else { // For MSIE http://msdn2.microsoft.com/en-us/library/ms536913.aspx
@@ -100,18 +98,16 @@ var Tabs = {
 				this.Element.hide(this.getTarget(tab));
 			}
 			this.addEvent(tab, "click", function (e) {
-				if (!Tabs.callback(this, callbacks, "click", e, active)) {
-					return false;	// Cancel event.
+				if (Tabs.callback(this, callbacks, "click", e, active)) {
+					Tabs.Element.removeClass(active, Tabs.activeClass);
+					Tabs.Element.addClass(this, Tabs.activeClass);
+					var from = active;
+					active = this;
+					if (Tabs.callback(this, callbacks, "show", e, from)) {
+						Tabs.Element.hide(Tabs.getTarget(from));
+						Tabs.Element.show(Tabs.getTarget(this));
+					}
 				}
-				Tabs.Element.removeClass(active, Tabs.activeClass);
-				Tabs.Element.addClass(this, Tabs.activeClass);
-				var from = active;
-				active = this;
-				if (!Tabs.callback(this, callbacks, "show", e, from)) {
-					return false;	// Callback handled visibility change.
-				}
-				Tabs.Element.hide(Tabs.getTarget(from));
-				Tabs.Element.show(Tabs.getTarget(this));
 				if (e.preventDefault) { // For DOM compliant browsers http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-Event-preventDefault
 					e.preventDefault();
 				} else { // For MSIE http://msdn2.microsoft.com/en-us/library/ms536913.aspx
