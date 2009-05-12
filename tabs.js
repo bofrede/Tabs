@@ -7,6 +7,9 @@
 *	Copyright (c) 2009 Bo Frederiksen
 *	http://www.bofrede.com
 *
+*	Copyright (c) 2005 John Resig
+*	http://ejohn.org/projects/flexible-javascript-events/
+*
 *	LICENSE
 *	---------------------------------------------------------------------------
 *	The MIT License
@@ -43,15 +46,16 @@ var Tabs = {
 	className: "tabs",
 	activeClass: "active",
 
-	addLoadEvent: function (event) {
-		var oldLoad = window.onload;
-
-		window.onload = function () {
-			event();
-			if (oldLoad) {
-				oldLoad();
-			}
-		};
+	addEvent: function (obj, type, fn) {
+		if (obj.attachEvent) {
+			obj['e' + type + fn] = fn;
+			obj[type + fn] = function () {
+				obj['e' + type + fn](window.event);
+			};
+			obj.attachEvent('on' + type, obj[type + fn]);
+		} else {
+			obj.addEventListener(type, fn, false);
+		}
 	},
 
 	create: function (tabs, callbacks) {
@@ -66,27 +70,26 @@ var Tabs = {
 		if (this.Element.hasClass(tab, this.activeClass)) {
 			this.Element.show(this.getTarget(tab));
 		}
-
-		this.Element.addClickEvent(tab, function (e) {
+		this.addEvent(tab, "click", function (e) {
 			if (!Tabs.callback(this, callbacks, "click", e)) {
 				return false;	// Cancel event.
 			}
-
 			Tabs.Element.toggleClass(this, Tabs.activeClass);
-
 			if (!Tabs.callback(this, callbacks, "show", e)) {
 				return false;	// Callback handled visibility change.
 			}
-
 			Tabs.Element.toggleVisibility(Tabs.getTarget(this));
-			return true;
+			if (e.preventDefault) { // For DOM compliant browsers http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-Event-preventDefault
+				e.preventDefault();
+			} else { // For MSIE http://msdn2.microsoft.com/en-us/library/ms536913.aspx
+				e.returnValue = false;
+			}
 		});
 	},
 
 	createGroup: function (tabs, callbacks) {
 		var active;
 		var tab;
-
 		for (var i = 0; i < tabs.length; i++) {
 			tab = tabs[i];
 			if (this.Element.hasClass(tab, this.activeClass)) {
@@ -96,32 +99,29 @@ var Tabs = {
 			} else {
 				this.Element.hide(this.getTarget(tab));
 			}
-
-			Tabs.Element.addClickEvent(tab, function (e) {
+			this.addEvent(tab, "click", function (e) {
 				if (!Tabs.callback(this, callbacks, "click", e, active)) {
 					return false;	// Cancel event.
 				}
-
 				Tabs.Element.removeClass(active, Tabs.activeClass);
 				Tabs.Element.addClass(this, Tabs.activeClass);
-
 				var from = active;
 				active = this;
-
 				if (!Tabs.callback(this, callbacks, "show", e, from)) {
 					return false;	// Callback handled visibility change.
 				}
-
 				Tabs.Element.hide(Tabs.getTarget(from));
 				Tabs.Element.show(Tabs.getTarget(this));
-				return true;
+				if (e.preventDefault) { // For DOM compliant browsers http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-Event-preventDefault
+					e.preventDefault();
+				} else { // For MSIE http://msdn2.microsoft.com/en-us/library/ms536913.aspx
+					e.returnValue = false;
+				}
 			});
 		}
-
 		if (!active) {
 			tab = tabs[0];
 			active = tab;
-
 			this.Element.addClass(tab, this.activeClass);
 			this.Element.show(this.getTarget(tab));
 		}
@@ -134,7 +134,6 @@ var Tabs = {
 	getTarget: function (tab) {
 		var match = /#(.*)$/.exec(tab.href);
 		var target;
-
 		if (match && (target = document.getElementById(match[1]))) {
 			return target;
 		}
@@ -143,31 +142,16 @@ var Tabs = {
 	getElementsByClassName: function (className, tag) {
 		var elements = document.getElementsByTagName(tag || "*");
 		var list = [];
-
 		for (var i = 0; i < elements.length; i++) {
 			if (this.Element.hasClass(elements[i], this.className)) {
 				list.push(elements[i]);
 			}
 		}
-
 		return list;
 	}
 };
 
 Tabs.Element = {
-	addClickEvent: function (element, callback) {
-		var oldClick = element.onclick;
-
-		element.onclick = function (e) {
-			callback.call(this, e);
-			if (oldClick) {
-				oldClick.call(this, e);	// Play nice with others.
-			}
-
-			return false;
-		};
-	},
-
 	addClass: function (element, className) {
 		element.className += (element.className ? " " : "") + className;
 	},
@@ -195,11 +179,9 @@ Tabs.Element = {
 		if (element.style[property]) {
 			return element.style[property];
 		}
-
 		if (element.currentStyle) {	// IE.
 			return element.currentStyle[property];
 		}
-
 		property = property.replace(/([A-Z])/g, "-$1").toLowerCase();	// Turns propertyName into property-name.
 		var style = document.defaultView.getComputedStyle(element, "");
 		if (style) {
@@ -231,23 +213,20 @@ Tabs.Element = {
 	}
 };
 
-Tabs.addLoadEvent(function () {
+Tabs.addEvent(window, "load", function () {
 	var elements = Tabs.getElementsByClassName(Tabs.className);
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
-
 		if (element.tagName === "A") {
 			Tabs.create(element);
 		} else {	// Group
 			var tabs = element.getElementsByTagName("a");
 			var group = [];
-
 			for (var t = 0; t < tabs.length; t++) {
 				if (Tabs.getTarget(tabs[t])) {
 					group.push(tabs[t]);	// Only group actual tab links.
 				}
 			}
-
 			if (group.length) {
 				Tabs.create(group);
 			}
