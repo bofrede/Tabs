@@ -7,7 +7,7 @@
 		<script type="text/javascript" src="tabs.js"></script>
 		<script type="text/javascript">
 			// Demo specific.
-			Tabs.addLoadEvent(function () {
+			Tabs.addEvent(window, "load", function () {
 				links = document.getElementById("gallery-preview").getElementsByTagName("a");
 
 				loading = new Image();
