@@ -1,8 +1,5 @@
 Add AutoFocus, to let a tab take focus, if an input field receives focus.
 Used when form validation sets focus to a field that wasn't properly filled in.
 
-Use addEvent for event binding:
-http://ejohn.org/projects/flexible-javascript-events/
-
 The anonymous function declared in line 100 is declared in a loop.
 Name the function or put the function in a closure.
