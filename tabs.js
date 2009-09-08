@@ -1,3 +1,4 @@
+/*jslint white: true, browser: true, undef: true, nomen: true, eqeqeq: true, bitwise: true, newcap: true, immed: true */
 /*
 *	TABS
 *	---------------------------------------------------------------------------
@@ -213,10 +214,13 @@ Tabs.addEvent(window, "load", function () {
 	var elements = Tabs.getElementsByClassName(Tabs.className);
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
-		if (element.tagName === "A") {
+		if (element.hasAttribute('href')) {
 			Tabs.create(element);
 		} else {	// Group
 			var tabs = element.getElementsByTagName("a");
+			if (tabs.length === 0) {
+				tabs = element.getElementsByTagName("area");
+			}
 			var group = [];
 			for (var t = 0; t < tabs.length; t++) {
 				if (Tabs.getTarget(tabs[t])) {
