@@ -214,7 +214,7 @@ Tabs.addEvent(window, "load", function () {
 	var elements = Tabs.getElementsByClassName(Tabs.className);
 	for (var i = 0; i < elements.length; i++) {
 		var element = elements[i];
-		if (element.hasAttribute('href')) {
+		if (element.tagName === "A" || element.tagName === "AREA") {
 			Tabs.create(element);
 		} else {	// Group
 			var tabs = element.getElementsByTagName("a");
