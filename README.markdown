@@ -1,10 +1,10 @@
 TABS
 ---------------------------------------------------------------------------
+Copyright (c) 2009-2013 Bo Frederiksen
+https://github.com/bofrede/Tabs
+
 Copyright (c) 2008 Dan Peverill
 http://www.danpeverill.com
-
-Copyright (c) 2009 Bo Frederiksen
-http://www.bofrede.com
 
 Copyright (c) 2005 John Resig
 http://ejohn.org/projects/flexible-javascript-events/

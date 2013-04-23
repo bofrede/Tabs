@@ -3,7 +3,7 @@
 *    TABS
 *    ---------------------------------------------------------------------------
 *    Copyright (c) 2009-2013 Bo Frederiksen
-*    http://www.bofrede.com
+*    https://github.com/bofrede/Tabs
 *
 *    Copyright (c) 2008 Dan Peverill
 *    http://www.danpeverill.com
