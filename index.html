@@ -4,22 +4,6 @@
 		<title>Tabs</title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
 		<link rel="stylesheet" type="text/css" media="screen" href="stylesheet.css">
-		<script type="text/javascript" src="tabs.js"></script>
-		<script type="text/javascript">
-			// Demo specific.
-			Tabs.addEvent(window, "load", function () {
-				links = document.getElementById("gallery-preview").getElementsByTagName("a");
-				loading = new Image();
-				loading.src = "images/loading.png";
-				Tabs.create(links, {
-					show: function (e) {
-						Tabs.getTarget(this).src = loading.src;
-						Tabs.getTarget(this).src = this.href.replace(/#.*$/, "");
-						return false;
-					}
-				});
-			});
-		</script>
 	</head>
 	<body>
 		<div id="page">
@@ -100,5 +84,22 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript" src="tabs.js"></script>
+		<script type="text/javascript">
+			/*jslint browser: true, sloppy: true */
+			// Demo specific.
+			(function () {
+				links = document.getElementById("gallery-preview").getElementsByTagName("a");
+				loading = new Image();
+				loading.src = "images/loading.png";
+				Tabs.create(links, {
+					show: function (e) {
+						Tabs.getTarget(this).src = loading.src;
+						Tabs.getTarget(this).src = this.href.replace(/#.*$/, "");
+						return false;
+					}
+				});
+			})();
+		</script>
 	</body>
 </html>
