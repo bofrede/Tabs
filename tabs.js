@@ -90,6 +90,23 @@ var Tabs = {
         var active,
             tab,
             i;
+        function tabClickHandler(e) {
+            if (Tabs.callback(this, callbacks, "click", e, active)) {
+                Tabs.Element.removeClass(active, Tabs.activeClass);
+                Tabs.Element.addClass(this, Tabs.activeClass);
+                var from = active;
+                active = this;
+                if (Tabs.callback(this, callbacks, "show", e, from)) {
+                    Tabs.Element.hide(Tabs.getTarget(from));
+                    Tabs.Element.show(Tabs.getTarget(this));
+                }
+            }
+            if (e.preventDefault) { // For DOM compliant browsers http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-Event-preventDefault
+                e.preventDefault();
+            } else { // For MSIE http://msdn2.microsoft.com/en-us/library/ms536913.aspx
+                e.returnValue = false;
+            }
+        }
         for (i = 0; i < tabs.length; i++) {
             tab = tabs[i];
             if (this.Element.hasClass(tab, this.activeClass)) {
@@ -99,23 +116,7 @@ var Tabs = {
             } else {
                 this.Element.hide(this.getTarget(tab));
             }
-            this.addEvent(tab, "click", function (e) {
-                if (Tabs.callback(this, callbacks, "click", e, active)) {
-                    Tabs.Element.removeClass(active, Tabs.activeClass);
-                    Tabs.Element.addClass(this, Tabs.activeClass);
-                    var from = active;
-                    active = this;
-                    if (Tabs.callback(this, callbacks, "show", e, from)) {
-                        Tabs.Element.hide(Tabs.getTarget(from));
-                        Tabs.Element.show(Tabs.getTarget(this));
-                    }
-                }
-                if (e.preventDefault) { // For DOM compliant browsers http://www.w3.org/TR/2000/REC-DOM-Level-2-Events-20001113/events.html#Events-Event-preventDefault
-                    e.preventDefault();
-                } else { // For MSIE http://msdn2.microsoft.com/en-us/library/ms536913.aspx
-                    e.returnValue = false;
-                }
-            });
+            this.addEvent(tab, "click", tabClickHandler);
         }
         if (!active) {
             tab = tabs[0];
@@ -130,7 +131,7 @@ var Tabs = {
     },
 
     getTarget: function (tab) {
-        var match = /#(.*)$/.exec(tab.href),
+        var match = /#([\w\-]+)$/.exec(tab.href),
             target;
         if (match && (target = document.getElementById(match[1]))) {
             return target;
