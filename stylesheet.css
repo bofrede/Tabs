@@ -1,20 +1,20 @@
 * {margin:0; padding:0}
 body {color:#b3b3bb; background:#131314; font:100%/1.125em Verdana, sans-serif}
-input, button, textarea {font:1em Verdana, sans-serif;}
+input, button, textarea {font:1em Verdana, sans-serif}
 input, button {vertical-align:middle}
 legend {display:none}
 fieldset {border:none}
 ul, ol {list-style:none}
-a {color:#7d94bc; text-decoration:none; font-weight:bold; outline:none }
+a {color:#7d94bc; text-decoration:none; font-weight:bold; outline:none}
 a:hover {color:#ccc}
 a img {border:0}
 table {border-collapse:collapse}
 #page {background:#1d1d20; width:720px; margin:0 auto; font-size:.75em; padding:20px}
 #page h1 {margin-bottom:20px; font-size:1.5em}
 #tabs {overflow:hidden}
-#click-me {float:left; display:block; padding:5px 10px; line-height:1em; font-weight:bold; color:#1d1d1d; background:#cccccc}
+#click-me {float:left; display:block; padding:5px 10px; line-height:1em; font-weight:bold; color:#1d1d1d; background:#ccc}
 #click-me:hover {background:#a8a8a8}
-#click-me.active {color:#cccccc; background:#2a2a2f}
+#click-me.active {color:#ccc; background:#2a2a2f}
 #click-me.active:hover {color:#ccc; background:#2a2a2f}
 #box {clear:both; background:#2a2a2f; padding:0 10px 10px 10px; display:none}
 #box ul.tabs {overflow:hidden; padding-top:10px}
