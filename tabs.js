@@ -213,7 +213,7 @@ Tabs.Element = {
     }
 };
 
-Tabs.addEvent(window, "load", function () {
+(function () {
     var elements = Tabs.getElementsByClassName(Tabs.className),
         i,
         element,
@@ -240,4 +240,4 @@ Tabs.addEvent(window, "load", function () {
             }
         }
     }
-});
+}());
