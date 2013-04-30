@@ -85,21 +85,6 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="tabs.js"></script>
-		<script type="text/javascript">
-			/*jslint browser: true, sloppy: true */
-			// Demo specific.
-			(function () {
-				links = document.getElementById("gallery-preview").getElementsByTagName("a");
-				loading = new Image();
-				loading.src = "images/loading.png";
-				Tabs.create(links, {
-					show: function (e) {
-						Tabs.getTarget(this).src = loading.src;
-						Tabs.getTarget(this).src = this.href.replace(/#.*$/, "");
-						return false;
-					}
-				});
-			})();
-		</script>
+		<script type="text/javascript" src="demo.js"></script>
 	</body>
 </html>
