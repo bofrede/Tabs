@@ -131,9 +131,9 @@ var Tabs = {
     },
 
     getTarget: function (tab) {
-        var match = /#([\w\-]+)$/.exec(tab.href),
+        var match = /#([\w-]+)$/.exec(tab.href),
             target;
-        if (match && (target = document.getElementById(match[1]))) {
+        if (match && (target == document.getElementById(match[1]))) {
             return target;
         }
     },
