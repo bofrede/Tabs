@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Tabs - nested example</title>
+		<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	</head>
+	<body>
+		<div id="page">
+			<h1>Tabs - nested example</h1>
+			<div id="tabs">
+				<a href="#box" id="click-me" class="tabs">Click Me!</a>
+				<div id="box">
+					<ul class="tabs">
+						<li><a href="#about">About</a></li>
+						<li><a class="active" href="#features">Features</a></li>
+						<li><a href="#gallery">Gallery</a></li>
+						<li><a href="#faq">FAQ</a></li>
+					</ul>
+					<div id="about">
+						<h2>About</h2>
+						<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>
+					</div>
+					<div id="features">
+						<h2>Features</h2>
+						<ul class="tabs">
+							<li><a href="#feature1">Easy to Use</a></li>
+							<li><a href="#feature2">Completely Custom</a></li>
+							<li><a href="#feature3">Lightning Fast</a></li>
+							<li><a href="#feature4">Free!</a></li>
+						</ul>
+						<div id="feature1">
+							<h3>Easty to Use</h3>
+							<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+						</div>
+						<div id="feature2">
+							<h3>Completely Custom</h3>
+							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore.</p>
+						</div>
+						<div id="feature3">
+							<h3>Lightning Fast</h3>
+							<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						</div>
+						<div id="feature4">
+							<h3>Free!</h3>
+							<p>At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum.</p>
+						</div>
+					</div>
+					<div id="gallery">
+						<h2>Gallery</h2>
+						<div id="gallery-preview">
+							<a href="images/gallery-1-large.jpg#gallery-image"><img src="images/gallery-1-small.jpg" alt="Image 1"></a>
+							<a href="images/gallery-2-large.jpg#gallery-image"><img src="images/gallery-2-small.jpg" alt="Image 2"></a>
+							<a href="images/gallery-3-large.jpg#gallery-image"><img src="images/gallery-3-small.jpg" alt="Image 3"></a>
+							<a href="images/gallery-4-large.jpg#gallery-image"><img src="images/gallery-4-small.jpg" alt="Image 4"></a>
+						</div>
+						<img id="gallery-image" src="images/gallery-1-large.jpg" alt="Large Image">
+					</div>
+					<div id="faq" class="tabs">
+						<h2>FAQ</h2>
+
+						<h3><a href="#faq1">Why is it easy to use?</a></h3>
+						<div id="faq1">
+							<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						</div>
+
+						<h3><a href="#faq2">How is it completely custom?</a></h3>
+						<div id="faq2">
+							<p>Ut wisi enim ad <a href="http://www.danpeverill.com">minim veniam</a>, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
+							<p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+						</div>
+
+						<h3><a href="#faq3">Are you sure it's lightning fast?</a></h3>
+						<div id="faq3">
+							<p>Duis autem <a href="#">vel eum</a> iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis.</p>
+							<p>At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  At accusam aliquyam diam diam dolore dolores duo eirmod eos erat, et nonumy sed tempor et et invidunt justo labore Stet clita ea et gubergren, kasd magna no rebum. sanctus sea sed takimata ut vero voluptua. est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</p>
+						</div>
+
+						<h3><a href="#faq4">It's free?!</a></h3>
+						<div id="faq4">
+							<p>Consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr,  sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="tabs.js"></script>
+		<script src="demo.js"></script>
+	</body>
+</html>

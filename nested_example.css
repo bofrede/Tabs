@@ -2,8 +2,6 @@
 body {color:#b3b3bb; background:#131314; font:100%/1.125em Verdana, sans-serif}
 input, button, textarea {font:1em Verdana, sans-serif}
 input, button {vertical-align:middle}
-legend {display:none}
-fieldset {border:none}
 ul, ol {list-style:none}
 a {color:#7d94bc; text-decoration:none; font-weight:bold; outline:none}
 a:hover {color:#ccc}
@@ -16,23 +14,23 @@ table {border-collapse:collapse}
 #click-me:hover {background:#a8a8a8}
 #click-me.active {color:#ccc; background:#2a2a2f}
 #click-me.active:hover {color:#ccc; background:#2a2a2f}
-#box {clear:both; background:#2a2a2f; padding:0 10px 10px 10px; display:none}
+#box {clear:both; background:#2a2a2f; padding:0 10px 10px 10px}
 #box ul.tabs {overflow:hidden; padding-top:10px}
 #box ul.tabs li {float:left}
 #box ul.tabs li a {float:left; background:#1c1c1c; padding:5px 10px; margin-right:2px}
 #box ul.tabs li a.active {color:#ccc; background:#222225}
-#box div.content {color:#999; background:#222225; padding:20px 20px 1px 20px; display:none}
-#box div.content h2 {font-size:1.3em; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #333}
-#box div.content h3 {font-size:1.1em; margin-bottom:20px; border:none}
-#box div.content p {margin-bottom:20px}
+#box .tabs ~ div {color:#999; background:#222225; padding:20px 20px 1px 20px}
+#box .tabs ~ div h2 {font-size:1.3em; margin-bottom:10px; padding-bottom:10px; border-bottom:1px solid #333}
+#box .tabs ~ div h3 {font-size:1.1em; margin-bottom:20px; border:none}
+#box .tabs ~ div p {margin-bottom:20px}
 #box #features {overflow:hidden; padding-bottom:20px}
 #features ul.tabs {float:left; padding-top:0}
 #features ul.tabs li {float:none; display:block}
 #features ul.tabs li a {float:none; display:block; margin:0 1px 1px 0; width:149px; padding:0 20px; line-height:40px; color:#666; background:#1c1c1d}
 #features ul.tabs li a:hover {color:#bbb}
 #features ul.tabs li a.active {color:#bbb; background:#191919; margin-right:0; width:150px}
-#features div.content {font-size:.9em; padding:20px; float:left; width:428px; min-height:123px; background:#191919; color:#aaa}
-#features div.content p {margin:0}
+#features .tabs ~ div {font-size:.9em; padding:20px; float:left; width:428px; min-height:123px; background:#191919; color:#aaa}
+#features .tabs ~ div p {margin:0}
 #box #gallery {overflow:hidden; padding-bottom:20px}
 #gallery #gallery-preview {float:left; width:308px; background:#191919; padding:10px 0 0 10px; height:204px}
 #gallery #gallery-preview a {float:left; margin:0px 10px 10px 0; border:1px solid #111}
@@ -43,4 +41,3 @@ table {border-collapse:collapse}
 #faq h3 {font-size:1.1em; margin-bottom:10px}
 #faq h3 a.active {color:#b3b3bb; text-decoration:none}
 #faq p {margin-bottom:10px}
-#faq div {display:none}
