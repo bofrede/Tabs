@@ -8,30 +8,6 @@ var Tabs = {
     activeClass: "active",
 
     create: function (tabs, callbacks) {
-        if (!tabs.length) {
-            this.createSingle(tabs, callbacks);
-        } else {
-            this.createGroup(tabs, callbacks);
-        }
-    },
-
-    createSingle: function (tab, callbacks) {
-        if (tab.classList.contains(this.activeClass)) {
-            this.getTarget(tab).style.display = "";
-        }
-        tab.addEventListener("click", function (e) {
-            if (Tabs.callback(this, callbacks, "click", e)) {
-                e.target.classList.toggle(Tabs.activeClass);
-                if (Tabs.callback(this, callbacks, "show", e)) {
-                    var target = Tabs.getTarget(this);
-                    target.style.display = (target.style.display !== "none") ? "none" : "";
-                }
-            }
-            e.preventDefault();
-        });
-    },
-
-    createGroup: function (tabs, callbacks) {
         var active,
             tab,
             i;
@@ -88,22 +64,18 @@ var Tabs = {
         t;
     for (i = 0; i < tabSetList.length; i++) {
         tabSet = tabSetList[i];
-        if (tabSet.tagName === "A" || tabSet.tagName === "AREA") {
-            Tabs.create(tabSet);
-        } else { // Group
-            tabs = tabSet.getElementsByTagName("a");
-            if (tabs.length === 0) {
-                tabs = tabSet.getElementsByTagName("area");
+        tabs = tabSet.getElementsByTagName("a");
+        if (tabs.length === 0) {
+            tabs = tabSet.getElementsByTagName("area");
+        }
+        group = [];
+        for (t = 0; t < tabs.length; t++) {
+            if (Tabs.getTarget(tabs[t])) {
+                group.push(tabs[t]); // Only group actual tab links.
             }
-            group = [];
-            for (t = 0; t < tabs.length; t++) {
-                if (Tabs.getTarget(tabs[t])) {
-                    group.push(tabs[t]); // Only group actual tab links.
-                }
-            }
-            if (group.length) {
-                Tabs.create(group);
-            }
+        }
+        if (group.length) {
+            Tabs.create(group);
         }
     }
 }());
