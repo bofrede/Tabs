@@ -22,25 +22,28 @@ var Tabs = {
                     Tabs.getTarget(this).style.display = "";
                 }
             }
-            //e.preventDefault();
+        }
+        if (location.hash) {
+            var activeTabInUrl = this.getTabByHash(location.hash.substr(1));
+            if (activeTabInUrl) {
+                active = activeTabInUrl;
+            }
         }
         for (i = 0; i < tabs.length; i++) {
             tab = tabs[i];
-            if (tab.classList.contains(this.activeClass)) {
+            if (!active && tab.classList.contains(this.activeClass)) {
                 active = tab;
-                tab.classList.add(Tabs.activeClass);
-                this.getTarget(tab).style.display = "";
             } else {
+                tab.classList.remove(this.activeClass);
                 this.getTarget(tab).style.display = "none";
             }
             tab.addEventListener("click", tabClickHandler);
         }
         if (!active) {
-            tab = tabs[0];
-            active = tab;
-            tab.classList.add(this.activeClass);
-            this.getTarget(tab).style.display = "";
+            active = tabs[0];
         }
+        active.classList.add(this.activeClass);
+        this.setTabBodyActive(active);
     },
 
     callback: function (element, callbacks, type, e, active) {
@@ -51,6 +54,19 @@ var Tabs = {
         var match = /#([\w-]+)$/.exec(tab.href);
         if (match) {
             return document.getElementById(match[1]);
+        }
+    },
+
+    getTabByHash(hash) {
+        return document.querySelector('.' + this.className + ' a[href="#' + hash + '"]');
+    },
+
+    setTabBodyActive(tab) {
+        var tabBody = this.getTarget(tab);
+        if (tab.classList.contains(this.activeClass)) {
+            tabBody.style.display = "";
+        } else {
+            tabBody.style.display = "none";
         }
     }
 };
