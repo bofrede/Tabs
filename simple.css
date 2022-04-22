@@ -8,10 +8,12 @@ h2 {
 
 .tabs {
 	display: flex;
-	flex-grow: 0;
-	margin: 0 0 1px 0;
+	margin: 0;
 	padding: 0;
 	list-style: none;
+	align-content: flex-end;
+	justify-content: flex-start;
+	align-items: flex-end;
 }
 
 .tabs li {
@@ -21,10 +23,11 @@ h2 {
 }
 
 .tabs li a {
+	display: inline-block;
 	color: #ccc;
 	text-decoration: none;
 	font-weight: bold;
-	padding:0.3em 0.6em;
+	padding:0.2em 0.6em;
 }
 
 .tabs li a:hover {
@@ -33,14 +36,14 @@ h2 {
 
 .tabs li a.active {
 	position: relative;
+	padding:0.3em 0.6em;
 	color: #000;
-	border-bottom: 1px solid #fff;
 }
 
 .tabs li a.active::after {
 	position: absolute;
 	left: 0;
-	bottom: 2px;
+	bottom: -2px;
 	width: 100%;
 	height: 3px;
 	background-color: #fff;
@@ -48,7 +51,7 @@ h2 {
 	font-size: 1px;
 }
 
-.tabs ~ div {
+.tabs ~ * {
 	border: 1px solid #aaa;
 	padding: 10px 20px;
 }
