@@ -16,10 +16,12 @@ var Tabs = {
                 active.classList.remove(Tabs.activeClass);
                 e.target.classList.add(Tabs.activeClass);
                 var from = active;
-                active = this;
-                if (Tabs.callback(this, callbacks, "show", e, from)) {
-                    Tabs.getTarget(from).style.display = "none";
-                    Tabs.getTarget(this).style.display = "";
+                active = e.target;
+                if (from !== active) {
+                    if (Tabs.callback(e.target, callbacks, "show", e, from)) {
+                        Tabs.setTabBodyActive(from);
+                        Tabs.setTabBodyActive(active);
+                    }
                 }
             }
         }
@@ -35,7 +37,7 @@ var Tabs = {
                 active = tab;
             } else {
                 tab.classList.remove(this.activeClass);
-                this.getTarget(tab).style.display = "none";
+                Tabs.setTabBodyActive(tab);
             }
             tab.addEventListener("click", tabClickHandler);
         }
@@ -65,6 +67,12 @@ var Tabs = {
         var tabBody = this.getTarget(tab);
         if (tab.classList.contains(this.activeClass)) {
             tabBody.style.display = "";
+            window.setTimeout(function() { // The focus is delayed a bit.
+                let elementToFocus = tabBody.querySelector("[autofocus]");
+                if (elementToFocus) {
+                    elementToFocus.focus();
+                }
+            }, 100);
         } else {
             tabBody.style.display = "none";
         }
