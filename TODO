@@ -1,4 +1,2 @@
 Add AutoFocus, to let a tab take focus, if an input field receives focus.
 Used when form validation sets focus to a field that wasn't properly filled in.
-
-setTabFromAnchor can set a tab active on load, if the url ends with a hash.
