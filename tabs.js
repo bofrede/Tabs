@@ -59,11 +59,11 @@ var Tabs = {
         }
     },
 
-    getTabByHash(hash) {
+    getTabByHash: function (hash) {
         return document.querySelector('.' + this.className + ' a[href="#' + hash + '"]');
     },
 
-    setTabBodyActive(tab) {
+    setTabBodyActive: function (tab) {
         var tabBody = this.getTarget(tab);
         if (tab.classList.contains(this.activeClass)) {
             tabBody.style.display = "";
